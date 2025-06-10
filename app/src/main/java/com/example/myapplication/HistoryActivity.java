@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.provider.MediaStore;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -33,7 +31,7 @@ public class HistoryActivity extends AppCompatActivity implements HubaRecordAdap
 
     private RecyclerView recyclerViewHistory;
     private HubaRecordAdapter adapter;
-    private List<HubaRecord> hubaRecords; // Deklarácia List<HubaRecord> pre celé activity
+    private List<HubaRecord> hubaRecords;
     private HubaDatabaseHelper dbHelper;
 
     @Override
@@ -55,7 +53,7 @@ public class HistoryActivity extends AppCompatActivity implements HubaRecordAdap
         dbHelper = new HubaDatabaseHelper(this);
 
         // Načítanie dát z databázy (inicializácia hubaRecords)
-        hubaRecords = dbHelper.getAllHubaRecords(); // Toto je teraz členská premenná
+        hubaRecords = dbHelper.getAllHubaRecords();
         Log.d("HistoryActivity", "Loaded " + hubaRecords.size() + " records for display.");
 
         // Inicializácia adaptéra a nastavenie pre RecyclerView
@@ -70,7 +68,7 @@ public class HistoryActivity extends AppCompatActivity implements HubaRecordAdap
                 // Používame recordIdToDelete, pretože position sa môže zmeniť, ak medzitým zmažeš iný záznam
                 long recordIdToDelete = hubaRecords.get(position).getId();
 
-                // Potvrdenie mazania (odporúčané)
+                // Potvrdenie mazania
                 showDeleteConfirmationDialog(position, recordIdToDelete);
             }
         });
@@ -198,17 +196,6 @@ public class HistoryActivity extends AppCompatActivity implements HubaRecordAdap
             Log.e("HistoryActivity", "Chyba pri exporte do CSV: " + e.getMessage(), e);
             Toast.makeText(this, "Chyba pri exporte záznamu: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
-    }
-
-    private String escapeCsv(String value) {
-        if (value == null) {
-            return "";
-        }
-        // Ak hodnota obsahuje čiarku, úvodzovky alebo nový riadok, uzavrieme ju do úvodzoviek a zdvojíme vnútorné úvodzovky
-        if (value.contains(",") || value.contains("\"") || value.contains("\n") || value.contains("\r")) {
-            return "\"" + value.replace("\"", "\"\"") + "\"";
-        }
-        return value;
     }
 
     /**

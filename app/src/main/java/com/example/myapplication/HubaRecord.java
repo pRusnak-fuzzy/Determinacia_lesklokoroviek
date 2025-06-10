@@ -26,7 +26,6 @@ public class HubaRecord {
     private double lahkaPlodnica;
     private String fotoPath;
 
-    // Konštruktory (môžeš pridať aj konštruktor s parametrami, ak potrebuješ)
     public HubaRecord() {
     }
 
@@ -178,7 +177,6 @@ public class HubaRecord {
         this.lahkaPlodnica = lahkaPlodnica;
     }
 
-    // Prepísanie toString pre ľahšie ladenie (voliteľné)
     @Override
     public String toString() {
         return "ID: " + id +

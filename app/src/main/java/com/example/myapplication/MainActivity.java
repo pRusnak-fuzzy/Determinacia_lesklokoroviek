@@ -21,7 +21,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -43,10 +42,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -54,7 +51,6 @@ import android.text.Html;
 
 import com.fuzzylite.Engine;
 import com.fuzzylite.imex.FllImporter;
-import com.fuzzylite.variable.InputVariable;
 import com.fuzzylite.variable.OutputVariable;
 
 public class MainActivity extends AppCompatActivity {
@@ -81,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonSaveResult;
     private Button buttonHistory;
 
-    private Engine engine; // FuzzyLite Engine
+    private Engine engine;
     private HubaDatabaseHelper dbHelper;
 
     // Mapovanie číselných výstupov na textové popisy
@@ -93,17 +89,15 @@ public class MainActivity extends AppCompatActivity {
     private double currentFuzzyValue;
     private String currentPhotoPath = null;
     private Map<String, Double> currentInputValues; // Mapa pre uloženie všetkých vstupných hodnôt
-    private ImageView imageViewSelectedPhoto; // NOVÉ
-    private Button buttonAddPhoto;         // NOVÉ
+    private ImageView imageViewSelectedPhoto;
+    private Button buttonAddPhoto;
 
-    // Pre obsluhu výsledku z Intentu (galérie/kamery)
-    // Toto je moderný spôsob, nahradzuje staršie onActivityResult
     private ActivityResultLauncher<Intent> pickImageLauncher; // Pre galériu
     private ActivityResultLauncher<Uri> takePhotoLauncher;   // Pre kameru (vyžaduje FileProvider)
     private ActivityResultLauncher<String[]> requestPermissionLauncher; // Pre povolenia
 
     // URI pre dočasný súbor, ak používame kameru
-    private Uri photoUri; // NOVÉ
+    private Uri photoUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
         dbHelper = new HubaDatabaseHelper(this);
 
-        imageViewSelectedPhoto = findViewById(R.id.imageViewSelectedPhoto); // NOVÉ
+        imageViewSelectedPhoto = findViewById(R.id.imageViewSelectedPhoto);
         buttonAddPhoto = findViewById(R.id.buttonAddPhoto);
 
         imageViewSelectedPhoto.setVisibility(View.GONE);
@@ -217,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
         // Nastavenie Spinnerov
         // 8. Kresba klobúka
         String[] kresbaKLOptions = {
-                "Vyberte možnosť...", // Voliteľné, ak chcete "prázdny" prvý výber
+                "Vyberte možnosť...",
                 "Béžová - šedá - hnedobéžová - šedobéžová - šedohnedá",
                 "Žltohnedá svetlá - žltohnedá - antuková hnedá - zeleno hnedá - olivovo hnedá",
                 "Okrová žltá - oranžovohnedá - perlovooranžová - okrovo hnedá - červenooranžová",
@@ -238,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 10. Farba dužiny
         String[] farbaDUOptions = {
-                "Vyberte možnosť...", // Voliteľné
+                "Vyberte možnosť...",
                 "Béžová až do pieskova",
                 "Piesková žltá - ltohnedá svetlá",
                 "Béžovohnedá - hnedobéžová, oranžovohnedá",
@@ -258,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
                 "Oriešková - gaštanová - antuková"
         };
         setupSpinner(spinner11_farba_RU, farbaRUOptions);
+
         // Inicializácia mapy pre preklad výsledkov
         hubaOutputMap.put(0.000, "Ganoderma resinaceum (Leskokôrovka živicovitá)");
         hubaOutputMap.put(0.200, "Ganoderma pfeifferi (Leskokôrovka Pfeifferova)");
@@ -504,7 +499,6 @@ public class MainActivity extends AppCompatActivity {
         } else if (checkedId == idForOne) {
             return 1.0;
         }
-        // Toto by sa nemalo stať, ak sú ID správne a existujú len 2 možnosti
         throw new IllegalArgumentException("Neplatný výber pre " + variableName + ".");
     }
 
@@ -524,12 +518,11 @@ public class MainActivity extends AppCompatActivity {
             throw new IllegalArgumentException("Vyberte hodnotu pre " + variableName + ".");
         } else if (checkedId == idForZero) {
             return 0.0;
-        } else if (checkedId == idForHalf) { // Kontrola pre 0.5
+        } else if (checkedId == idForHalf) {
             return 0.5;
         } else if (checkedId == idForOne) {
             return 1.0;
         }
-        // Toto by sa nemalo stať, ak sú ID správne a existujú len 3 možnosti
         throw new IllegalArgumentException("Neplatný výber pre " + variableName + ".");
     }
 
@@ -565,7 +558,7 @@ public class MainActivity extends AppCompatActivity {
             case 3: // "Čokoládová-čiernočierna"
                 return 1.0;
             default:
-                // Toto by sa nemalo stať, ak sú možnosti správne definované a validované
+                // Toto by sa nemalo stať
                 throw new IllegalArgumentException("Neplatný výber pre " + variableName + ".");
         }
     }
@@ -632,11 +625,11 @@ public class MainActivity extends AppCompatActivity {
      */
     private void saveCurrentResult() {
         Log.d(TAG, "saveCurrentResult() volaná.");
-        if (currentLatinName == null || currentLatinName.isEmpty() || // Pridal som .isEmpty() pre robustnosť
-                currentCommonName == null || currentCommonName.isEmpty() || // Pridal som .isEmpty()
-                currentInputValues == null || currentInputValues.isEmpty()) { // Pridal som .isEmpty()
+        if (currentLatinName == null || currentLatinName.isEmpty() ||
+                currentCommonName == null || currentCommonName.isEmpty() ||
+                currentInputValues == null || currentInputValues.isEmpty()) {
             Log.e(TAG, "Chyba: Niektoré dáta na uloženie sú null alebo mapa vstupov je prázdna.");
-            Log.e(TAG, "  currentLatinName: '" + currentLatinName + "'"); // Pre lepšie debug logy
+            Log.e(TAG, "  currentLatinName: '" + currentLatinName + "'");
             Log.e(TAG, "  currentCommonName: '" + currentCommonName + "'");
             Log.e(TAG, "  currentFuzzyValue: " + currentFuzzyValue);
             Log.e(TAG, "  currentInputValues: " + (currentInputValues == null ? "NULL" : "Size: " + currentInputValues.size()));
@@ -654,8 +647,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (id != -1) {
             Toast.makeText(this, "Výsledok úspešne uložený do histórie!", Toast.LENGTH_SHORT).show();
-            // Po uložení môžeš tlačidlo uložiť znova skryť alebo ho nechať viditeľné
-            // buttonSaveResult.setVisibility(View.GONE);
             currentPhotoPath = null;
         } else {
             Toast.makeText(this, "Chyba pri ukladaní výsledku.", Toast.LENGTH_SHORT).show();
@@ -683,8 +674,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             pickImageLauncher.launch(intent);
         } else {
-            // Permissions are requested by checkAndRequestPermissionsForGallery(), so this else might not be strictly necessary
-            // or could just be a fallback message.
             Toast.makeText(this, "Pre výber fotky z galérie sú potrebné povolenia.", Toast.LENGTH_SHORT).show();
         }
     }
@@ -692,7 +681,6 @@ public class MainActivity extends AppCompatActivity {
     private void takePhotoFromCamera() {
         if (checkAndRequestPermissionsForCamera()) {
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            // Zabezpeč, aby bol k dispozícii Camera app
             if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                 File photoFile = null;
                 try {
@@ -705,7 +693,7 @@ public class MainActivity extends AppCompatActivity {
                 if (photoFile != null) {
                     photoUri = FileProvider.getUriForFile(
                             this,
-                            "com.example.myapplication.fileprovider", // MUSÍ ZODPOVEDAŤ AUTHORITIES V MANIFESTE A resources/xml/file_paths.xml
+                            "com.example.myapplication.fileprovider",
                             photoFile
                     );
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
@@ -715,13 +703,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Žiadna aplikácia pre fotoaparát nie je dostupná.", Toast.LENGTH_SHORT).show();
             }
         } else {
-            // Permissions are requested by checkAndRequestPermissionsForCamera(), so this else might not be strictly necessary
-            // or could just be a fallback message.
             Toast.makeText(this, "Pre použitie fotoaparátu sú potrebné povolenia.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    //region Permission Handling
     private boolean checkAndRequestPermissionsForGallery() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
@@ -748,9 +733,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
-    //endregion
-
-    //region Image File Operations
 
     /**
      * Vytvorí dočasný súbor obrázka v externom úložisku aplikácie.
@@ -808,13 +790,9 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
-    //endregion
 
     /**
      * Vlastný kontrakt pre ActivityResultLauncher, ktorý namiesto Intentu prijíma Uri.
-     * Je to len ukážka pre demonštráciu, že ActivityResultContract možno prispôsobiť.
-     * V reálnej aplikácii by sa pre kameru často používal len Intent s EXTRA_OUTPUT
-     * a potom by sa URI použilo priamo.
      */
     private static class ActivityPhotoContract extends ActivityResultContract<Uri, Boolean> {
 
@@ -830,8 +808,6 @@ public class MainActivity extends AppCompatActivity {
         // result je boolean, true ak bolo úspešne uložené, false inak
         @Override
         public Boolean parseResult(int resultCode, @Nullable Intent intent) {
-            // Pre MediaStore.ACTION_IMAGE_CAPTURE s EXTRA_OUTPUT, dáta v Intent sú často null.
-            // Úspech sa posudzuje podľa resultCode.
             return resultCode == Activity.RESULT_OK;
         }
     }

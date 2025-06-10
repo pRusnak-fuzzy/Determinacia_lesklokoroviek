@@ -4,7 +4,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton; // Import pre ImageButton
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -18,7 +18,7 @@ import java.util.Locale;
 public class HubaRecordAdapter extends RecyclerView.Adapter<HubaRecordAdapter.HubaViewHolder> {
 
     private List<HubaRecord> hubaRecords;
-    private OnItemClickListener listener; // Rozhranie pre kliknutia (napr. na delete button)
+    private OnItemClickListener listener;
     private OnExportClickListener exportClickListener;
 
     public interface OnExportClickListener {
@@ -41,21 +41,20 @@ public class HubaRecordAdapter extends RecyclerView.Adapter<HubaRecordAdapter.Hu
 
     public void updateData(List<HubaRecord> newRecords) {
         this.hubaRecords = newRecords;
-        //notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public HubaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_huba_record, parent, false);
-        return new HubaViewHolder(view, listener); // Poslať listener do ViewHolderu
+        return new HubaViewHolder(view, listener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HubaViewHolder holder, int position) {
         HubaRecord record = hubaRecords.get(position);
 
-        // Zmena ID z tvLatinName, tvCommonName na tvHubaName
+        // Zmena z tvLatinName, tvCommonName na tvHubaName
         holder.tvHubaName.setText(String.format("<i>%s</i> (%s)", record.getLatinskyNazov(), record.getSlovenskyNazov()));
         // Nastavenie textu s HTML formátovaním (pre <i> tag)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
@@ -68,11 +67,10 @@ public class HubaRecordAdapter extends RecyclerView.Adapter<HubaRecordAdapter.Hu
         holder.tvFuzzyValue.setText(String.format(Locale.getDefault(), "Fuzzy hodnota: %.3f", record.getHodnotaFuzzy()));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault());
-// Použi getDatumUrcenia() - váš kód možno stále používa getTimestamp()
-        if (record.getDatumUrcenia() != null) { // <--- PRIDAJ NULL CHECK
+        if (record.getDatumUrcenia() != null) {
             holder.tvDate.setText("Dátum: " + sdf.format(record.getDatumUrcenia()));
         } else {
-            holder.tvDate.setText("Dátum: N/A"); // Alebo nejaký iný defaultný text
+            holder.tvDate.setText("Dátum: N/A");
         }
 
         // Nastavenie vstupných hodnôt (s volaním pomocných metód pre preklad)
@@ -95,7 +93,7 @@ public class HubaRecordAdapter extends RecyclerView.Adapter<HubaRecordAdapter.Hu
         holder.tvFarbaRuriek.setText("Farba rúrok: " + getFarbaRurokText(record.getFarbaRuriek()));
 
 
-        // Zobrazenie fotky (zmena ID z imageViewPhoto na imageViewHistoryPhoto)
+        // Zobrazenie fotky
         if (record.getFotoPath() != null && !record.getFotoPath().isEmpty()) {
             File imgFile = new File(record.getFotoPath());
             if (imgFile.exists()) {
@@ -103,21 +101,21 @@ public class HubaRecordAdapter extends RecyclerView.Adapter<HubaRecordAdapter.Hu
                 holder.imageViewHistoryPhoto.setVisibility(View.VISIBLE);
             } else {
                 holder.imageViewHistoryPhoto.setVisibility(View.GONE);
-                holder.imageViewHistoryPhoto.setImageDrawable(null); // Vyčistiť pre istotu
+                holder.imageViewHistoryPhoto.setImageDrawable(null);
             }
         } else {
             holder.imageViewHistoryPhoto.setVisibility(View.GONE);
-            holder.imageViewHistoryPhoto.setImageDrawable(null); // Vyčistiť pre istotu
+            holder.imageViewHistoryPhoto.setImageDrawable(null);
         }
 
-        // Nastavenie OnClickListener pre nové tlačidlo exportu
+        // Nastavenie OnClickListener pre tlačidlo exportu
         holder.buttonExportRecord.setOnClickListener(v -> {
             if (exportClickListener != null) {
                 exportClickListener.onExportClick(record);
             }
         });
 
-        holder.buttonDeleteRecord.setOnClickListener(v -> { // Predpokladám, že máte aj tlačidlo pre mazanie
+        holder.buttonDeleteRecord.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onDeleteClick(holder.getAdapterPosition());
             }
@@ -130,13 +128,6 @@ public class HubaRecordAdapter extends RecyclerView.Adapter<HubaRecordAdapter.Hu
     }
 
     // --- Pomocné metódy pre preklad číselných hodnôt na text ---
-
-    // Pre 3. Hlúbik, 4. Povrch Klobúka, 5. Živicová Vrstva, 13. Lahka Plodnica (0.0/1.0)
-    private String getBinaryChoiceText(double value) {
-        if (value == 0.0) return "Nie";
-        if (value == 1.0) return "Áno";
-        return "N/A";
-    }
 
     // Pre 6. Tvar klobúka, 12. Okraj plodnice (0.0/0.5/1.0)
     private String getTvarKlobukaText(double value) {
@@ -209,11 +200,11 @@ public class HubaRecordAdapter extends RecyclerView.Adapter<HubaRecordAdapter.Hu
 
 
     public static class HubaViewHolder extends RecyclerView.ViewHolder {
-        TextView tvDate; // Zmenené ID
-        TextView tvHubaName; // Zmenené ID
+        TextView tvDate;
+        TextView tvHubaName;
         TextView tvFuzzyValue;
-        ImageView imageViewHistoryPhoto; // Zmenené ID
-        ImageButton buttonDeleteRecord; // Nové
+        ImageView imageViewHistoryPhoto;
+        ImageButton buttonDeleteRecord;
 
         Button buttonExportRecord;
 
@@ -221,8 +212,8 @@ public class HubaRecordAdapter extends RecyclerView.Adapter<HubaRecordAdapter.Hu
         TextView tvDlzkaSpor;
         TextView tvSirkaSpor;
         TextView tvHlubik;
-        TextView tvPovrchKlobuka; // Opravené preklepy v ID
-        TextView tvZivicovaVrstva; // Opravené preklepy v ID
+        TextView tvPovrchKlobuka;
+        TextView tvZivicovaVrstva;
         TextView tvTvarKlobuka;
         TextView tvFarbaKlobuka;
         TextView tvKresbaKlobuka;
