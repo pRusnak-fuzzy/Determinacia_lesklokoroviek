@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/label_1_dlzka_S"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1. Dĺžka spór:"
+            android:textSize="16sp"
+            android:layout_marginTop="38dp" />
+
+        <EditText
+            android:id="@+id/input_1_dlzka_S"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="Rozsah: 7.0 - 13.0"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:id="@+id/label_2_sirka_S"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2. Šírka spór:"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/input_2_sirka_S"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="Rozsah: 5.0 - 9.5"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:id="@+id/label_3_hlubik"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3. Hlúbik:"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup_3_hlubik"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/radio_hlubik_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Neprítomný" />
+            <RadioButton
+                android:id="@+id/radio_hlubik_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prítomný" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/label_4_povrh_KL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4. Povrch klobúka:"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup_4_povrh_KL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/radio_povrh_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Matný" />
+            <RadioButton
+                android:id="@+id/radio_povrh_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lesklý" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/label_5_zivic_Vr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5. Živicová vrstva:"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup_5_zivic_Vr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/radio_zivic_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nie" />
+            <RadioButton
+                android:id="@+id/radio_zivic_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Áno" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/label_6_tvar_KL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6. Tvar klobúka:"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup_6_tvar_KL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/radio_tvar_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kopytovitý" />
+            <RadioButton
+                android:id="@+id/radio_tvar_0_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nedá sa určiť" />
+            <RadioButton
+                android:id="@+id/radio_tvar_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plochý" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/label_7_farba_KL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7. Farba klobúka:"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup_7_farba_KL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/radio_farbakl_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hnedá" />
+            <RadioButton
+                android:id="@+id/radio_farbakl_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tmavohnedá" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/label_8_kresba_KL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8. Kresba klobúka:"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <Spinner
+            android:id="@+id/spinner_8_kresba_KL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:id="@+id/label_9_farba_HL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9. Farba hlúbika:"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <Spinner
+            android:id="@+id/spinner9_farba_HL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/label_10_farba_DU"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10. Farba dužiny:"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <Spinner
+            android:id="@+id/spinner_10_farba_DU"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:id="@+id/label_11_farba_RU"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11. Farba rúrok:"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <Spinner
+            android:id="@+id/spinner_11_farba_RU"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:id="@+id/label_12_okraj_PL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12. Tvar okraja plodnice:"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup_12_okraj_PL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/radio_okraj_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Oblý" />
+            <RadioButton
+                android:id="@+id/radio_okraj_0_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nedá sa určiť" />
+            <RadioButton
+                android:id="@+id/radio_okraj_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ostrý" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/label_13_lahka_PL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="13. Výrazne ľahká plodnica:"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup_13_lahka_PL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/radio_lahka_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nie" />
+            <RadioButton
+                android:id="@+id/radio_lahka_1"  
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Áno" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/buttonCalculate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Určiť Typ Huby"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp" />
+
+        <TextView
+            android:id="@+id/textViewResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Typ Huby: N/A"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"/>
+
+         <ImageView
+            android:id="@+id/imageViewSelectedPhoto"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/darker_gray"
+            android:src="@null" android:visibility="gone" android:contentDescription="Náhľad odfotenej huby" />
+
+        <Button
+            android:id="@+id/buttonAddPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pridať fotku"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal" /> 
+
+        <Button
+            android:id="@+id/buttonSaveResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Uložiť Výsledok"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/buttonHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zobraziť Históriu"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageButton
+            android:id="@+id/buttonDeleteRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_delete"  
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Zmazať záznam"
+            android:minWidth="32dp"
+            android:minHeight="32dp"
+            android:padding="4dp" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:textSize="14sp"
+            android:text="Dátum: 2024-05-28 10:30:00" />
+
+        <TextView
+            android:id="@+id/tvHubaName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp"
+            android:text="Latinský Názov (Slovenský Názov)" />
+
+        <TextView
+            android:id="@+id/tvFuzzyValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:text="Fuzzy Hodnota: 0.500" />
+
+        <ImageView
+            android:id="@+id/imageViewHistoryPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" 
+            android:scaleType="centerCrop"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" android:background="@android:color/transparent"
+            android:contentDescription="Fotka určenej huby" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vstupné parametre:"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tvDlzkaSpor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Dĺžka spór: N/A" />
+        <TextView
+            android:id="@+id/tvSirkaSpor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Šírka spór: N/A" />
+        <TextView
+            android:id="@+id/tvHlubik"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Hlúbik: N/A" />
+        <TextView
+            android:id="@+id/tvPovrchKlobuka"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Povrch klobúka: N/A" />
+        <TextView
+            android:id="@+id/tvZivicovaVrstva"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Živicová vrstva: N/A" />
+        <TextView
+            android:id="@+id/tvTvarKlobuka"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Tvar klobúka: N/A" />
+        <TextView
+            android:id="@+id/tvFarbaKlobuka"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Farba klobúka: N/A" />
+        <TextView
+            android:id="@+id/tvKresbaKlobuka"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Kresba klobúka: N/A" />
+        <TextView
+            android:id="@+id/tvFarbaHlubika"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Farba hlúbika: N/A" />
+        <TextView
+            android:id="@+id/tvFarbaDuziny"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Farba dužiny: N/A" />
+        <TextView
+            android:id="@+id/tvFarbaRuriek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Farba rúrok: N/A" />
+        <TextView
+            android:id="@+id/tvTvarOkraja"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Tvar okraja plodnice: N/A" />
+        <TextView
+            android:id="@+id/tvLahkaPlodnica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="Bokom prirastená plodnica: N/A" />
+
+        <Button
+        android:id="@+id/buttonExportRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Export do CSV"
+        android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
