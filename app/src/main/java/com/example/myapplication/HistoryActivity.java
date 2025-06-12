@@ -2,10 +2,12 @@ package com.example.myapplication;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -33,6 +35,7 @@ public class HistoryActivity extends AppCompatActivity implements HubaRecordAdap
     private HubaRecordAdapter adapter;
     private List<HubaRecord> hubaRecords;
     private HubaDatabaseHelper dbHelper;
+    private Button btnBackToMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,18 @@ public class HistoryActivity extends AppCompatActivity implements HubaRecordAdap
                 showDeleteConfirmationDialog(position, recordIdToDelete);
             }
         });
+
+        btnBackToMain = findViewById(R.id.btnBackToMain);
+        if (btnBackToMain != null) {
+            btnBackToMain.setOnClickListener(v -> {
+                Intent intent = new Intent(HistoryActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            });
+        } else {
+            Log.e("HistoryActivity", "Chyba: Tlačidlo s ID R.id.btnBackToMain nebolo nájdené v layoutu!");
+            Toast.makeText(this, "Chyba aplikácie: Tlačidlo Späť chýba.", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -189,7 +204,6 @@ public class HistoryActivity extends AppCompatActivity implements HubaRecordAdap
 
             Log.d("HistoryActivity", "Temporary CSV created at: " + tempFile.getAbsolutePath());
 
-            // Ponúknuť zdieľanie súboru
             saveCsvToDownloads(tempFile, fileName);
 
         } catch (IOException e) {
